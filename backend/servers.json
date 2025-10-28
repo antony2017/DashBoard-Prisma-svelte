@@ -1,0 +1,62 @@
+[
+  {
+    "ID": 1,
+    "URL": "https://orchestra.prismatechcorp.com/",
+    "Pais": "VE",
+    "Nombre": "orchestra VE"
+  },
+  {
+    "ID": 2,
+    "URL": "https://nativapagos.qmatic.cloud/",
+    "Pais": "VE",
+    "Nombre": "Nativa Pagos"
+  },
+  {
+    "ID": 3,
+    "URL": "https://segurospiramide.qmatic.cloud/",
+    "Pais": "VE",
+    "Nombre": "Seguros Piramide"
+  },
+  {
+    "ID": 4,
+    "URL": "https://oceanicadeseguros.qmatic.cloud/",
+    "Pais": "VE",
+    "Nombre": "Oceanica de Seguros"
+  },
+  {
+    "ID": 5,
+    "URL": "https://metlife.qmatic.cloud/",
+    "Pais": "MX",
+    "Nombre": "Metlife"
+  },
+  {
+    "ID": 6,
+    "URL": "https://sagicor.qmatic.cloud/",
+    "Pais": "BA",
+    "Nombre": "Sagicor"
+  },
+  {
+    "ID": 7,
+    "URL": "https://centromedicoabc.qmatic.cloud/",
+    "Pais": "MX",
+    "Nombre": "Centro Medico ABC"
+  },
+  {
+    "ID": 8,
+    "URL": "https://cmcaracas.qmatic.cloud/",
+    "Pais": "VE",
+    "Nombre": "CM Caracas"
+  },
+  {
+    "ID": 9,
+    "URL": "https://medicasur.qmatic.cloud/",
+    "Pais": "MX",
+    "Nombre": "Medicasur"
+  },
+  {
+    "ID": 10,
+    "URL": "https://srs-sv.visit-manager-admin.qmatic.io/",
+    "Pais": "BA",
+    "Nombre": "Salvador"
+  }
+]
