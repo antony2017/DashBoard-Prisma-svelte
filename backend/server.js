@@ -16,7 +16,7 @@ const DEFAULT_CLAVE = "Ulan1234.";
 const ALLOWED_ORIGINS = [
   "http://localhost:5173", // Típico puerto de desarrollo Svelte
   "http://localhost:3000",
-  import.meta.env.VITE_API_URL, // Si usas otro puerto de dev
+  // Si usas otro puerto de dev
 ];
 
 app.use((req, res, next) => {
