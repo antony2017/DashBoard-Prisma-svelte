@@ -1,14 +1,18 @@
 // src/lib/data/api.js
 
-import { env as PUBLIC_ENV } from "$env/dynamic/public";
+import { PUBLIC_API_URL } from "$env/static/public";
 
-// Usamos $env/dynamic/public para evitar fallos en build cuando la variable
-// `PUBLIC_API_URL` no está presente. Mantener también compatibilidad con
-// `VITE_API_URL` y un fallback local para desarrollo.
+// Usamos $env/static/public para que el valor se sustituya en tiempo de build
+// (necesario para builds estáticos con @sveltejs/adapter-static).
+// Mantenemos fallback a VITE_API_URL y localhost para desarrollo local.
 const API_URL =
-  PUBLIC_ENV.PUBLIC_API_URL ||
-  import.meta.env.VITE_API_URL ||
-  "http://localhost:3000/api";
+  PUBLIC_API_URL || import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+
+// Debug: muestra en consola la URL que quedó bakeada en el build.
+// El mensaje te ayudará a confirmar en producción/preview cuál URL se está usando.
+if (typeof window !== "undefined") {
+  console.info("API_URL (bakeada):", API_URL);
+}
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
