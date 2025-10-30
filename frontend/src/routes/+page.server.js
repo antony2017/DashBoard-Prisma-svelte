@@ -8,7 +8,9 @@ import { fetchAllServers } from "$lib/data/api"; // Importamos la función de ut
  */
 export async function load({ fetch }) {
   // 1. Accede a la variable privada (debe llamarse API_URL en Railway)
+
   const API_URL = env.API_URL;
+  console.log(API_URL);
 
   // 2. Verificación de configuración. Si falla, significa que la variable no fue seteada.
   if (!API_URL || API_URL.includes("undefined")) {
