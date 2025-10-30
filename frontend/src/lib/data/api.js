@@ -1,11 +1,14 @@
 // src/lib/data/api.js
 
-import { PUBLIC_API_URL } from "$env/static/public";
+import { env as PUBLIC_ENV } from "$env/dynamic/public";
 
-// Preferimos la variable pública SvelteKit `PUBLIC_API_URL` (expuesta al cliente).
-// Mantenemos compatibilidad con `VITE_API_URL` y un fallback local para desarrollo.
+// Usamos $env/dynamic/public para evitar fallos en build cuando la variable
+// `PUBLIC_API_URL` no está presente. Mantener también compatibilidad con
+// `VITE_API_URL` y un fallback local para desarrollo.
 const API_URL =
-  PUBLIC_API_URL || import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+  PUBLIC_ENV.PUBLIC_API_URL ||
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:3000/api";
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
