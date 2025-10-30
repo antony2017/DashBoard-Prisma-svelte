@@ -1,7 +1,9 @@
 # Dockerfile dentro de la carpeta 'backend/'
 
-FROM node:20-slim
-WORKDIR /usr/src/app
+
+FROM node:22
+WORKDIR /app
+
 
 # Copia los archivos de manifiesto del proyecto
 COPY package*.json ./
@@ -13,4 +15,4 @@ RUN npm install --production
 COPY . .
 
 EXPOSE 3000
-CMD [ "node", "server.js" ]
+CMD ["npm", "start"]
