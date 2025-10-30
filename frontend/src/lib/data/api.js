@@ -1,7 +1,8 @@
 // src/lib/data/api.js
 
 //const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL =
+  import.meta.env.VITE_API_URL || "dashboard-prisma-backend.up.railway.app/api";
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
