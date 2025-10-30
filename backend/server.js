@@ -14,7 +14,7 @@ const DEFAULT_CLAVE = "Ulan1234.";
 // --- INICIO: CONFIGURACIÓN CORS EXPLÍCITA MULTI-ORIGEN ---
 // 1. Definimos una lista (Array) de todos los orígenes (URLs) permitidos.
 const ALLOWED_ORIGINS = [
-  "http://localhost:5173", // Típico puerto de desarrollo Svelte
+  "https://dashboard-frontend.up.railway.app", // Típico puerto de desarrollo Svelte
   "https://dashboard-prisma-backend.up.railway.app",
   // Si usas otro puerto de dev
 ];
