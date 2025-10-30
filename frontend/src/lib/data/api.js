@@ -1,7 +1,11 @@
 // src/lib/data/api.js
 
-//const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const API_URL = "https://dashboard-prisma-backend.up.railway.app/api";
+import { PUBLIC_API_URL } from "$env/static/public";
+
+// Preferimos la variable pública SvelteKit `PUBLIC_API_URL` (expuesta al cliente).
+// Mantenemos compatibilidad con `VITE_API_URL` y un fallback local para desarrollo.
+const API_URL =
+  PUBLIC_API_URL || import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
