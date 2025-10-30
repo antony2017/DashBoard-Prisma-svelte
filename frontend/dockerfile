@@ -1,5 +1,6 @@
-# Etapa de construcción
-FROM node:24 AS builder
+# Usa Node.js compatible con tus dependencias
+FROM node:24
+
 WORKDIR /app
 
 # Copia los archivos del proyecto
@@ -8,8 +9,8 @@ COPY . .
 # Instala dependencias y construye el proyecto
 RUN npm install
 RUN npm run build
+# Expone el puerto que Railway espera
+EXPOSE 4173
 
-# Etapa de producción con Nginx
-FROM nginx:alpine
-COPY --from=builder /app/build /usr/share/nginx/html
-
+# Comando para servir el sitio
+CMD ["npm", "run", "preview"]
