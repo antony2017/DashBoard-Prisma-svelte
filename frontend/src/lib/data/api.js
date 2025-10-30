@@ -1,23 +1,15 @@
 // src/lib/data/api.js
 
-// 1. Importamos 'env' del módulo dinámico privado.
-// Esto es CRUCIAL, ya que te da acceso a las variables de Railway (como process.env)
-// en tiempo de ejecución. Usamos la versión 'dynamic' porque los valores cambian (local vs Railway).
-import { env } from "$env/dynamic/private";
-
-// 2. Accedemos a la variable de entorno API_URL (sin prefijo PUBLIC_)
-// El valor hardcodeado se deja como un fallback SÓLO si env.API_URL no está definido,
-// aunque si lo tienes en Railway, nunca se usará.
-const API_URL =
-  env.API_URL || "https://dashboard-prisma-backend.up.railway.app/api";
-
-console.log(`[API.JS - Servidor] Conectando a: ${API_URL}`);
+// NOTA: Hemos eliminado la importación de '$env/dynamic/private' de este archivo
+// para evitar el error de compilación. Ahora la URL debe ser pasada como argumento.
 
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
+ * La URL base de la API se recibe como argumento.
+ * @param {string} API_URL - La URL base de la API (obtenida de la variable de entorno de Railway en el servidor).
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
  */
-export const fetchAllServers = async () => {
+export const fetchAllServers = async (API_URL) => {
   try {
     const response = await fetch(`${API_URL}/multiple-requests`, {
       method: "POST",
@@ -37,8 +29,9 @@ export const fetchAllServers = async () => {
 
 /**
  * Consulta el endpoint /managementinformation.
+ * La URL base de la API se recibe como argumento.
  */
-export const fetchManagementInfo = async (serverUrl, branchId) => {
+export const fetchManagementInfo = async (API_URL, serverUrl, branchId) => {
   const infoResp = await fetch(`${API_URL}/managementinformation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -49,8 +42,9 @@ export const fetchManagementInfo = async (serverUrl, branchId) => {
 
 /**
  * Consulta el endpoint /status-branch.
+ * La URL base de la API se recibe como argumento.
  */
-export const fetchBranchStatus = async (serverUrl, branchId) => {
+export const fetchBranchStatus = async (API_URL, serverUrl, branchId) => {
   const statusResp = await fetch(`${API_URL}/status-branch`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -1,20 +1,27 @@
 // @ts-check
-// Importamos la función fetchAllServers de nuestra librería,
-// la cual internamente ya sabe la URL de la API gracias a env.API_URL
+
+// 1. Importamos la función de la librería (la que espera la URL como argumento)
 import { fetchAllServers } from "$lib/data/api";
+
+// 2. Importamos el entorno aquí. Este es el ÚNICO lugar que debe hacerlo.
+import { env } from "$env/dynamic/private";
 
 /**
  * Función que se ejecuta ÚNICAMENTE en el servidor.
  * Su objetivo es cargar la data inicial que el componente +page.svelte necesita.
- * La variable de entorno API_URL de Railway se usa dentro de fetchAllServers.
  */
 export async function load() {
-  console.log("Iniciando carga de datos en el servidor...");
-  try {
-    // 1. Llamamos a la función que usa la API_URL de Railway
-    const serverData = await fetchAllServers();
+  // 3. Obtenemos la variable de Railway (o un fallback)
+  const API_URL =
+    env.API_URL || "https://dashboard-prisma-backend.up.railway.app/api";
 
-    // 2. Retornamos la data real al componente
+  console.log(`[SERVER LOAD] Usando API URL: ${API_URL}`);
+
+  try {
+    // 4. Llamamos a la función de API e INYECTAMOS la API_URL como argumento
+    const serverData = await fetchAllServers(API_URL);
+
+    // 5. Retornamos la data real al componente
     return {
       servers: serverData,
       status: "success",
@@ -22,12 +29,11 @@ export async function load() {
   } catch (error) {
     console.error("ERROR: No se pudieron cargar los datos iniciales.", error);
 
-    // 3. Devolvemos un estado de error al componente para que pueda mostrar un mensaje
+    // 6. Devolvemos un estado de error al componente
     return {
       servers: [],
       status: "error",
-      errorMessage:
-        "Error al conectar con la API. Verifica la variable API_URL en Railway y el estado del backend.",
+      errorMessage: "Error al conectar con la API. Detalles: " + error.message,
     };
   }
 }
