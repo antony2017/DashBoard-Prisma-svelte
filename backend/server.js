@@ -15,7 +15,8 @@ const DEFAULT_CLAVE = "Ulan1234.";
 // 1. Definimos una lista (Array) de todos los orígenes (URLs) permitidos.
 const ALLOWED_ORIGINS = [
   "http://localhost:5173", // Típico puerto de desarrollo Svelte
-  "http://localhost:3000", // Si usas otro puerto de dev
+  "http://localhost:3000",
+  import.meta.env.VITE_API_URL, // Si usas otro puerto de dev
 ];
 
 app.use((req, res, next) => {
