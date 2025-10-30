@@ -1,15 +1,12 @@
 // src/lib/data/api.js
 
-// NOTA: Hemos eliminado la importación de '$env/dynamic/private' de este archivo
-// para evitar el error de compilación. Ahora la URL debe ser pasada como argumento.
-
+//const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_URL = "https://dashboard-prisma-backend.up.railway.app/api";
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
- * La URL base de la API se recibe como argumento.
- * @param {string} API_URL - La URL base de la API (obtenida de la variable de entorno de Railway en el servidor).
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
  */
-export const fetchAllServers = async (API_URL) => {
+export const fetchAllServers = async () => {
   try {
     const response = await fetch(`${API_URL}/multiple-requests`, {
       method: "POST",
@@ -29,9 +26,8 @@ export const fetchAllServers = async (API_URL) => {
 
 /**
  * Consulta el endpoint /managementinformation.
- * La URL base de la API se recibe como argumento.
  */
-export const fetchManagementInfo = async (API_URL, serverUrl, branchId) => {
+export const fetchManagementInfo = async (serverUrl, branchId) => {
   const infoResp = await fetch(`${API_URL}/managementinformation`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,9 +38,8 @@ export const fetchManagementInfo = async (API_URL, serverUrl, branchId) => {
 
 /**
  * Consulta el endpoint /status-branch.
- * La URL base de la API se recibe como argumento.
  */
-export const fetchBranchStatus = async (API_URL, serverUrl, branchId) => {
+export const fetchBranchStatus = async (serverUrl, branchId) => {
   const statusResp = await fetch(`${API_URL}/status-branch`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
