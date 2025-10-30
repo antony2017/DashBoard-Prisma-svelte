@@ -1,5 +1,8 @@
 // src/lib/data/api.js
-
+// Importa tu variable usando el nombre completo, incluido PUBLIC_
+import { PUBLIC_API_URL } from "$env/static/public";
+// Ahora puedes usarla directamente en tus funciones o en el HTML
+console.log(`Conectando a: ${PUBLIC_API_URL}`);
 //const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 const API_URL = "https://dashboard-prisma-backend.up.railway.app/api";
 /**
