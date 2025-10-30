@@ -1,7 +1,15 @@
 # Etapa de construcción
 FROM node:22 AS builder
 WORKDIR /app
+
+# Permitir pasar PUBLIC_API_URL como build-arg desde el sistema de deploy (Railway)
+# y exponerla como variable de entorno durante las instrucciones RUN, de modo que
+# el build de Vite/SvelteKit pueda leerla en tiempo de build.
+ARG PUBLIC_API_URL
+ENV PUBLIC_API_URL=${PUBLIC_API_URL}
+
 COPY . .
+RUN echo "PUBLIC_API_URL during build: $PUBLIC_API_URL"
 RUN npm install
 RUN npm run build
 
