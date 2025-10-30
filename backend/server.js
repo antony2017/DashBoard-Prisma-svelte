@@ -12,12 +12,31 @@ const DEFAULT_USER = "apiprisma";
 const DEFAULT_CLAVE = "Ulan1234.";
 
 // --- INICIO: CONFIGURACIÓN CORS EXPLÍCITA MULTI-ORIGEN ---
-// 1. Definimos una lista (Array) de todos los orígenes (URLs) permitidos.
-const ALLOWED_ORIGINS = [
-  "https://dashboard-frontend.up.railway.app", // Típico puerto de desarrollo Svelte
-  "https://dashboard-prisma-backend.up.railway.app",
-  // Si usas otro puerto de dev
+// 1. Definimos la lista (Array) de orígenes permitidos.
+// Ahora la leemos desde una variable de entorno `ALLOWED_ORIGINS` (configurable
+// en Railway). Puedes pasar una lista separada por comas, o una única URL.
+// Ejemplos:
+//   ALLOWED_ORIGINS=https://mi-frontend.app
+//   ALLOWED_ORIGINS=https://a.app,https://b.app
+// Si no se define, usamos un fallback para desarrollo local.
+const DEFAULT_ALLOWED_ORIGINS = [
+  "http://localhost:5173",
+  "http://localhost:3000",
 ];
+
+const rawAllowed =
+  process.env.ALLOWED_ORIGINS || process.env.FRONTEND_URL || "";
+let ALLOWED_ORIGINS;
+if (rawAllowed && rawAllowed.trim().length > 0) {
+  ALLOWED_ORIGINS = rawAllowed
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+} else {
+  ALLOWED_ORIGINS = DEFAULT_ALLOWED_ORIGINS;
+}
+
+console.log("Allowed origins:", ALLOWED_ORIGINS);
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
