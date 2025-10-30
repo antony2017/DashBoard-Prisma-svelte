@@ -1,10 +1,18 @@
 // src/lib/data/api.js
-// Importa tu variable usando el nombre completo, incluido PUBLIC_
-import { PUBLIC_API_URL } from "$env/static/public";
-// Ahora puedes usarla directamente en tus funciones o en el HTML
-console.log(`Conectando a: ${PUBLIC_API_URL}`);
-//const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const API_URL = "https://dashboard-prisma-backend.up.railway.app/api";
+
+// 1. Importamos 'env' del módulo dinámico privado.
+// Esto es CRUCIAL, ya que te da acceso a las variables de Railway (como process.env)
+// en tiempo de ejecución. Usamos la versión 'dynamic' porque los valores cambian (local vs Railway).
+import { env } from "$env/dynamic/private";
+
+// 2. Accedemos a la variable de entorno API_URL (sin prefijo PUBLIC_)
+// El valor hardcodeado se deja como un fallback SÓLO si env.API_URL no está definido,
+// aunque si lo tienes en Railway, nunca se usará.
+const API_URL =
+  env.API_URL || "https://dashboard-prisma-backend.up.railway.app/api";
+
+console.log(`[API.JS - Servidor] Conectando a: ${API_URL}`);
+
 /**
  * Consulta el endpoint /multiple-requests para obtener la lista de sucursales por servidor.
  * @returns {Promise<Array<Object>>} Los resultados brutos de cada servidor.
