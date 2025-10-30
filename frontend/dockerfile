@@ -10,6 +10,7 @@ COPY . .
 RUN npm install
 RUN npm run build
 # Expone el puerto que Railway espera
+COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 4173
 
 # Comando para servir el sitio
