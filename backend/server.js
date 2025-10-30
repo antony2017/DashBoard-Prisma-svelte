@@ -251,9 +251,9 @@ app.delete("/api/servers/:id", (req, res) => {
 });
 
 // Servir index.html para cualquier otra ruta (Esto es para desarrollo local)
-app.get(/(.*)/, (req, res) => {
+/*app.get(/(.*)/, (req, res) => {
   res.sendFile(path.join(__dirname, "index.html")); // si está en la raíz
-});
+});*/
 
 // Esta parte solo es relevante para desarrollo local.
 app.listen(PORT, () => {
