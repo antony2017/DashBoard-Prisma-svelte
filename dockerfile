@@ -23,7 +23,7 @@ COPY --from=builder /app/frontend/build ./build
 COPY --from=builder /app/frontend/node_modules ./node_modules
 
 # Si necesitas servers.json en runtime, cópialo desde el backend
-COPY --from=builder /app/backend/servers.json ./servers.json
+COPY --from=builder /app/servers.json ./servers.json
 
 EXPOSE 3000
 # Ejecuta el servidor Node generado por SvelteKit (adapter-node)
