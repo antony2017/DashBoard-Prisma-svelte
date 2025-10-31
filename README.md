@@ -6,33 +6,61 @@ Everything you need to build a Svelte project, powered by [`sv`](https://github.
 
 If you're seeing this, you've probably already done this step. Congrats!
 
-```sh
+````sh
 # create a new project in the current directory
-npx sv create
+# DashBoard-Prisma-svelte
 
-# create a new project in my-app
-npx sv create my-app
-```
+Proyecto SvelteKit con endpoints server-side (migrado desde un backend Express).
 
-## Developing
+Resumen
+- Frontend y endpoints SvelteKit en `src/`
+- Endpoints server-side en `src/routes/api/*`
+- Configuración server en `src/lib/server/config.js`
+- `servers.json` (lectura/escritura) se busca en la raíz o en `backend/`
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Cómo correr localmente
 
-```sh
+1. Instalar dependencias
+
+```powershell
+cd C:\codigo\GitHub\railway\svelte\DashBoard-Prisma-svelte
+npm ci
+````
+
+2. Desarrollo
+
+```powershell
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+3. Build + run (modo producción)
 
-To create a production version of your app:
-
-```sh
+```powershell
 npm run build
+npm start
 ```
 
-You can preview the production build with `npm run preview`.
+Variables de entorno necesarias
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- DEFAULT_USER - usuario básico para llamadas al API remoto
+- DEFAULT_CLAVE - clave para el usuario
+- ALLOWED_ORIGINS o FRONTEND_URL - (opcional) para control de CORS
+
+Docker
+
+El `Dockerfile` en la raíz construye y ejecuta la app con Node (adapter-node). Para construir:
+
+```powershell
+docker build -t dashboard-prisma-app .
+docker run --rm -p 3000:3000 -e DEFAULT_USER='apiprisma' -e DEFAULT_CLAVE='Ulan1234.' dashboard-prisma-app
+```
+
+Notas de producción
+
+- No uses `servers.json` como almacenamiento persistente en producción; usa una DB.
+- Asegura las env vars en Railway (DEFAULT_USER, DEFAULT_CLAVE, FRONTEND_URL/ALLOWED_ORIGINS).
+- Si usas preview deploys en Railway, añade las URLs de preview a `ALLOWED_ORIGINS`.
+
+Contact
+
+Si quieres que haga la integración final (push + validación de deploy), dímelo y lo hago.

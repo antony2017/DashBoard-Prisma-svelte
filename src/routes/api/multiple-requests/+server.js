@@ -1,4 +1,3 @@
-// src/routes/api/multiple-requests/+server.js
 import { json } from "@sveltejs/kit";
 import { loadServers } from "$lib/server/utils";
 import {

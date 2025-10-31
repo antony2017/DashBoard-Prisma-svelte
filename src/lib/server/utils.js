@@ -2,33 +2,45 @@
 import fs from "fs";
 import path from "path";
 
-// Buscamos servers.json en la raíz del proyecto SvelteKit (process.cwd())
-// o, si existe, en ../backend/servers.json (cuando migres desde la carpeta backend).
+// Look for servers.json in the root of the SvelteKit project (process.cwd())
 const candidatePaths = [path.join(process.cwd(), "servers.json")];
 
+/**
+ * Finds the path to the servers.json file.
+ * If the file exists in any of the candidate paths, it returns that path.
+ * Otherwise, it returns the first candidate path to be used for writing later.
+ */
 function findServersPath() {
   for (const p of candidatePaths) {
     try {
       if (fs.existsSync(p)) return p;
     } catch (e) {
-      // ignore
+      // Ignore errors during path checking
     }
   }
-  // si no existe, usaremos la primera ruta para escribir luego
+  // If not found, return the first path as default for future writing
   return candidatePaths[0];
 }
 
+/**
+ * Loads the list of servers from the servers.json file.
+ * If the file cannot be read or parsed, returns an empty array.
+ */
 export function loadServers() {
   const p = findServersPath();
   try {
     const raw = fs.readFileSync(p, "utf8");
     return JSON.parse(raw || "[]");
   } catch (e) {
-    console.warn("loadServers: no se pudo leer", p, e.message);
+    console.warn("loadServers: could not read", p, e.message);
     return [];
   }
 }
 
+/**
+ * Saves the list of servers to the servers.json file.
+ * Returns true if successful, false otherwise.
+ */
 export function saveServers(servers) {
   const p = findServersPath();
   try {

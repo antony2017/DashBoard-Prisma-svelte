@@ -1,4 +1,3 @@
-// src/routes/api/managementinformation/+server.js
 import { json } from "@sveltejs/kit";
 import {
   DEFAULT_USER,
