@@ -14,7 +14,7 @@ RUN npm ci --unsafe-perm || npm install
 RUN npm run build
 
 # Etapa de producción: runtime ligero con Node para servir build (adapter-node)
-FROM node:18-alpine AS runtime
+FROM node:22 AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
