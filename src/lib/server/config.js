@@ -1,15 +1,13 @@
-import { env } from "$env/dynamic/private";
+import { DEFAULT_USER, DEFAULT_CLAVE } from "$lib/server/config";
 
-function required(name) {
-  const val = env[name];
-  if (!val) {
-    throw new Error(`Missing required env var ${name}`);
-  }
-  return val;
+if (!DEFAULT_USER || !DEFAULT_CLAVE) {
+  console.error("Missing DEFAULT_USER/DEFAULT_CLAVE env vars");
+  return json(
+    { error: "Server misconfiguration: missing credentials" },
+    { status: 500 }
+  );
 }
 
-export const DEFAULT_USER = required("DEFAULT_USER");
-export const DEFAULT_CLAVE = required("DEFAULT_CLAVE");
 export const endpointSuffix = "qsystem/rest/config/branches/";
 export const managementinformation =
   "qsystem/rest/managementinformation/v2/branches/";
