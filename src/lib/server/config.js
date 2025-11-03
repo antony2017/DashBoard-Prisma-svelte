@@ -1,12 +1,12 @@
-import { DEFAULT_USER, DEFAULT_CLAVE } from "$lib/server/config";
+import { env } from "$env/dynamic/private";
 
-if (!DEFAULT_USER || !DEFAULT_CLAVE) {
-  console.error("Missing DEFAULT_USER/DEFAULT_CLAVE env vars");
-  return json(
-    { error: "Server misconfiguration: missing credentials" },
-    { status: 500 }
-  );
+// Leer variables de entorno de forma segura (no lanzar en build)
+function readEnv(name) {
+  return env[name] ?? process.env[name] ?? null;
 }
+
+export const DEFAULT_USER = readEnv("DEFAULT_USER");
+export const DEFAULT_CLAVE = readEnv("DEFAULT_CLAVE");
 
 export const endpointSuffix = "qsystem/rest/config/branches/";
 export const managementinformation =

@@ -7,6 +7,13 @@ import {
 } from "$lib/server/config";
 
 export const POST = async () => {
+  if (!DEFAULT_USER || !DEFAULT_CLAVE) {
+    console.error("Missing DEFAULT_USER/DEFAULT_CLAVE env vars");
+    return json(
+      { error: "Server misconfiguration: missing credentials" },
+      { status: 500 }
+    );
+  }
   const servers = loadServers();
   const credentials = Buffer.from(`${DEFAULT_USER}:${DEFAULT_CLAVE}`).toString(
     "base64"

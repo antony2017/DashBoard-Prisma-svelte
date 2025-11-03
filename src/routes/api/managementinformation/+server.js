@@ -6,6 +6,13 @@ import {
 } from "$lib/server/config";
 
 export const POST = async ({ request }) => {
+  if (!DEFAULT_USER || !DEFAULT_CLAVE) {
+    console.error("Missing DEFAULT_USER/DEFAULT_CLAVE env vars");
+    return json(
+      { error: "Server misconfiguration: missing credentials" },
+      { status: 500 }
+    );
+  }
   const body = await request.json();
   const { serverUrl, branchId } = body;
   if (!serverUrl || !branchId)
